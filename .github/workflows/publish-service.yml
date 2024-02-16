@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - service/**
+      - .github/workflows/publish-service.yml
 
 permissions:
   id-token: write
