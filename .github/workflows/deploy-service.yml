@@ -47,4 +47,4 @@ jobs:
       - name: Deploy
         shell: bash
         run: |
-          terragrunt run-all apply -auto-approve
+          terragrunt run-all apply --terragrunt-non-interactive
