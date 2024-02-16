@@ -45,7 +45,7 @@ jobs:
             --repository-name flask-hello-world \
             || echo "Already created"
           aws ecr set-repository-policy --repository-name flask-hello-world \
-            --policy-text '{ "Version": "2012-10-17", "Statement": [ { "Sid": "ReadonlyAccess", "Effect": "Allow", "Principal": { "AWS": "arn:aws:iam::${{ github.secrets.AWS_ACCOUNT_ID }}:root" }, "Action": [ "ecr:BatchCheckLayerAvailability", "ecr:BatchGetImage", "ecr:DescribeImageScanFindings", "ecr:DescribeImages", "ecr:DescribeRepositories", "ecr:GetAuthorizationToken", "ecr:GetDownloadUrlForLayer", "ecr:GetRepositoryPolicy", "ecr:ListImages" ] } ] }'
+            --policy-text '{ "Version": "2012-10-17", "Statement": [ { "Sid": "ReadonlyAccess", "Effect": "Allow", "Principal": { "AWS": "arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:root" }, "Action": [ "ecr:BatchCheckLayerAvailability", "ecr:BatchGetImage", "ecr:DescribeImageScanFindings", "ecr:DescribeImages", "ecr:DescribeRepositories", "ecr:GetAuthorizationToken", "ecr:GetDownloadUrlForLayer", "ecr:GetRepositoryPolicy", "ecr:ListImages" ] } ] }'
 
       - name: Build and push
         uses: docker/build-push-action@v5
@@ -53,4 +53,4 @@ jobs:
           context: ./service
           platforms: linux/amd64
           push: true
-          tags: ${{ github.secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-2.amazonaws.com/flask-hello-world:latest
+          tags: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-2.amazonaws.com/flask-hello-world:latest
