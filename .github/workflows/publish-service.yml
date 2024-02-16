@@ -38,6 +38,15 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      - name: Create Repository
+        shell: bash
+        run: |
+          aws ecr create-repository \
+            --repository-name flask-hello-world \
+            || echo "Already created"
+          aws ecr set-repository-policy --repository-name flask-hello-world \
+            --policy-text '{ "Version": "2012-10-17", "Statement": [ { "Sid": "ReadonlyAccess", "Effect": "Allow", "Principal": { "AWS": "arn:aws:iam::339713176830:root" }, "Action": [ "ecr:BatchCheckLayerAvailability", "ecr:BatchGetImage", "ecr:DescribeImageScanFindings", "ecr:DescribeImages", "ecr:DescribeRepositories", "ecr:GetAuthorizationToken", "ecr:GetDownloadUrlForLayer", "ecr:GetRepositoryPolicy", "ecr:ListImages" ] } ] }'
+
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
