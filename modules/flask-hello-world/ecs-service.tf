@@ -43,6 +43,9 @@ resource "aws_ecs_task_definition" "task" {
     image        = "${var.image_name}:${var.image_tag}",
     essential    = true,
     portMappings = [{ containerPort = 8888, hostPort = 8888 }],
+    "environment": [
+      {"name": "FLASK_RUN_PORT", "value": "8888"}
+    ],
 
     logConfiguration = {
       logDriver = "awslogs",
