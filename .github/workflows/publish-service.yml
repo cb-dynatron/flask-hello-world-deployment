@@ -41,7 +41,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./service
           platforms: linux/amd64
           push: true
           tags: 339713176830.dkr.ecr.us-east-2.amazonaws.com/flask-hello-world:latest
