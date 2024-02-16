@@ -20,7 +20,7 @@ defaults:
     working-directory: ./deployment
 
 jobs:
-  publish:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
