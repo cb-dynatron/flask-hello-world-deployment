@@ -48,4 +48,4 @@ COPY . .
 EXPOSE 8888
 
 # Run the application.
-CMD FLASH_RUN_PORT=8888 python3 -m flask run --host=0.0.0.0
+CMD FLASK_RUN_PORT=8888 python3 -m flask run --host=0.0.0.0
