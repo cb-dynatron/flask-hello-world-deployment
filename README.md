@@ -41,6 +41,7 @@ Terrafom modules used for deployment
 Terragrunt configurations to manage remote stack, locking and the module with inputs to deploy
 
 ## How to Terraform to AWS
+Deployed to https://dynatron.brothers.zone
 
 ### Releasing a new version
 Simply push updates to the source code under `./service/` and GitHub will build a new docker

@@ -36,12 +36,23 @@ resource "aws_lb" "alb" {
   security_groups    = [aws_security_group.alb.id]
 }
 
-resource "aws_lb_target_group" "ecs_svc" {
-  name_prefix = "albtg-"
+resource "aws_lb_target_group" "ecs_svc_2" {
+  name_prefix = "tgt-"
   vpc_id      = var.vpc_id
-  protocol    = "HTTPS"
+  protocol    = "HTTP"
   port        = 8888
   target_type = "ip"
+
+  health_check {
+    enabled             = true
+    path                = "/"
+    port                = 8888
+    matcher             = 200
+    interval            = 10
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 3
+  }
 }
 
 resource "aws_lb_listener" "https" {
@@ -54,6 +65,6 @@ resource "aws_lb_listener" "https" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.ecs_svc.id
+    target_group_arn = aws_lb_target_group.ecs_svc_2.id
   }
 }

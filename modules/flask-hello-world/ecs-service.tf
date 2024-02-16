@@ -101,7 +101,7 @@ resource "aws_ecs_service" "svc" {
   }
  
   load_balancer {
-    target_group_arn = aws_lb_target_group.ecs_svc.arn
+    target_group_arn = aws_lb_target_group.ecs_svc_2.arn
     container_name   = "${var.name_prefix}-container"
     container_port   = 8888
   }
