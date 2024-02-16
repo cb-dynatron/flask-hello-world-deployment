@@ -33,6 +33,17 @@ jobs:
           role-session-name: ${{ github.event.repository.name }}
           aws-region: ${{ env.AWS_REGION }}
 
+    - name: Setup Terraform
+      uses: hashicorp/setup-Terraform@v1
+      with:
+        terraform_version: 1.5.7
+
+    - name: Setup Terragrunt
+      run: |
+        sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/v0.55.2/terragrunt_linux_amd64"
+        sudo chmod +x /bin/terragrunt
+        terragrunt -v
+
       - name: Deploy
         shell: bash
         run: |
