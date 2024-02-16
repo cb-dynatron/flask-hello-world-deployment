@@ -1,0 +1,39 @@
+name: Deploy Service
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - modules/**
+      - deployment/**
+      - .github/workflows/deploy-service.yml
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: us-east-2
+
+defaults:
+  run:
+    working-directory: ./deployment
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: arn:aws:iam::${{ github.secrets.AWS_ACCOUNT_ID }}:role/deployment-role
+          role-session-name: ${{ github.event.repository.name }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Deploy
+        shell: bash
+        run: |
+          terragrunt run-all apply -auto-approve

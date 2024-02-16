@@ -72,3 +72,10 @@ yarn-error.log
 
 # Other Folders
 /.vagrant/
+
+# direnv
+.envrc
+
+# terraform
+**/.terraform**
+**/.terragrunt**
